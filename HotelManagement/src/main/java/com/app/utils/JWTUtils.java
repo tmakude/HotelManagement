@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +29,11 @@ public class JWTUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JWTUtils.class);
 
-	 
+	  @Value("${SECRET_KEY}")
 	  private String jwtSecret;
 
 	
-	 
+	  @Value("${EXP_TIMEOUT}")
 	  private int jwtExpirationMs;
 
 	  public String generateJwtToken(UserDetails userPrincipal) {

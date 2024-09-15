@@ -1,0 +1,109 @@
+package com.app.service;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Base64;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.services.s3.internal.AWSS3V4Signer;
+import com.app.dto.Response;
+import com.app.dto.RoomDto;
+import com.app.dto.UserDto;
+import com.app.entity.Room;
+import com.app.entity.User;
+import com.app.exception.Exceptions;
+import com.app.repository.BookingRepository;
+import com.app.repository.RoomRepository;
+import com.app.utils.Utils;
+
+@Service
+public class RoomServiceImpl implements RoomService{
+
+	@Autowired
+	private RoomRepository roomRepository;
+	
+	@Autowired
+	private BookingRepository bookingRepository;
+	
+	@Autowired
+	private AWSS3V4Signer awsS3V4Signer;
+	@Override
+	public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String description) {
+		
+		Response response = new Response();
+		 try {
+			//convert the MultipartFile to byte Array
+				byte[] imageBytes = photo.getBytes();
+				// Encode the byte array as a base64 string
+		        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+		        
+		        Room room = new Room();
+		        room.setRoomPhotoUrl(base64Image);
+		        room.setRoomType(roomType);
+		        room.setRoomDescription(description);
+		        room.setRoomPrice(roomPrice);
+		        
+		        Room rooms =roomRepository.save(room);
+		        RoomDto roomDto =Utils.mapRoomEntityToRoomDto(rooms);
+		        
+		        response.setStatusCode(200);
+		        response.setMessage("Successfull");
+		        response.setRoom(roomDto);
+			 
+			
+				
+		 }catch(Exception e) {
+				response.setStatusCode(500);
+				response.setMessage("Error saving Room "+e.getMessage());
+				
+			}
+			return response;
+	}
+
+	@Override
+	public List<String> getAllRoomTypes() {
+		
+		return null;
+	}
+
+	@Override
+	public Response getAllRooms() {
+		
+		return null;
+	}
+
+	@Override
+	public Response deleteRoom(Long roomId) {
+		
+		return null;
+	}
+
+	@Override
+	public Response updateRoom(Long roomId, String roomType, BigDecimal roomPrice, MultipartFile photo) {
+		
+		return null;
+	}
+
+	@Override
+	public Response getRoomById(Long roomId) {
+		
+		return null;
+	}
+
+	@Override
+	public Response getAvailableRoomsByDataAndType(LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
+		
+		return null;
+	}
+
+	@Override
+	public Response getAllAvailableRooms() {
+		
+		return null;
+	}
+
+}

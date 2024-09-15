@@ -1,0 +1,125 @@
+package com.app.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.app.dto.LoginDto;
+import com.app.dto.Response;
+import com.app.dto.UserDto;
+import com.app.entity.User;
+import com.app.exception.Exceptions;
+import com.app.repository.UserRepository;
+import com.app.utils.JWTUtils;
+import com.app.utils.Utils;
+
+@Service
+public class UserServiceImpl implements UserService{
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JWTUtils jwtUtils;
+	
+	@Autowired
+	private AuthenticationManager  authenticationManager;
+
+	@Override
+	public Response register(User user) {
+		
+		Response response = new Response();
+		try {
+			
+			if(user.getRole() == null || user.getRole().isEmpty()) {
+				user.setRole("USER");
+			}
+			if(userRepository.existsByEmail(user.getEmail())) {
+				throw new Exceptions(user.getEmail()+ "Already Exists");
+			}
+			
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			User saveUser= userRepository.save(user);
+			UserDto userDto = Utils.mapUserEntityToUserDTO(saveUser);
+			response.setStatusCode(200);
+			response.setUser(userDto);
+			
+		}catch(Exceptions e)
+		{
+			response.setStatusCode(400);
+			response.setMessage(e.getMessage());
+			
+		}
+		catch(Exception e) {
+			response.setStatusCode(500);
+			response.setMessage("Error Occuring During the USER Resistration"+e.getMessage());
+			
+		}
+		return response;
+	}
+
+	@Override
+	public Response login(LoginDto loginRequest) {
+		Response response = new Response();
+        try {
+			
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+			
+			User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(()->new Exceptions("User Not Found"));
+			
+			String token = jwtUtils.generateJwtToken(user);
+			response.setStatusCode(200);
+			response.setToken(token);
+			response.setRole(user.getRole());
+			response.setExpirationTime("7 days");
+			response.setMessage("Successful");
+			
+		}catch(Exceptions e)
+		{
+			response.setStatusCode(404);
+			response.setMessage(e.getMessage());
+			
+		}
+		catch(Exception e) {
+			response.setStatusCode(500);
+			response.setMessage("Error Occuring During the USER Login"+e.getMessage());
+			
+		}
+		return null;
+	}
+
+	@Override
+	public Response getAllUsers() {
+		
+		return null;
+	}
+
+	@Override
+	public Response getUsersBookingHistory(String UserId) {
+		
+		return null;
+	}
+
+	@Override
+	public Response deleterUser(String UserId) {
+		
+		return null;
+	}
+
+	@Override
+	public Response getUserById(String UserId) {
+	
+		return null;
+	}
+
+	@Override
+	public Response getMyInfo(String UserId) {
+		
+		return null;
+	}
+
+}

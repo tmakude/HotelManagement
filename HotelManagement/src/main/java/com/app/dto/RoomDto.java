@@ -1,5 +1,6 @@
 package com.app.dto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class RoomDto {
 	
     private Long id;
 	private String roomType;
-	private String roomPrice;
+	private BigDecimal roomPrice;
 	private String roomPhotoUrl;
 	private String roomDescription;
-	private List<BookingDto> booking ;
+	private List<BookingDto> booking;
 
 }

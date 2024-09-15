@@ -1,5 +1,6 @@
 package com.app.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class Room {
 	private Long id;
 	
 	private String roomType;
-	private String roomPrice;
+	private BigDecimal roomPrice;
 	private String roomPhotoUrl;
 	private String roomDescription;
 	
