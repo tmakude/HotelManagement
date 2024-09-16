@@ -30,8 +30,7 @@ public class RoomServiceImpl implements RoomService{
 	@Autowired
 	private BookingRepository bookingRepository;
 	
-	@Autowired
-	private AWSS3V4Signer awsS3V4Signer;
+	
 	@Override
 	public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String description) {
 		

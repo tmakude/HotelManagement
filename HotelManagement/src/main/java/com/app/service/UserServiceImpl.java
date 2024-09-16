@@ -122,12 +122,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Response getUsersBookingHistory(String UserId) {
+	public Response getUsersBookingHistory(Long UserId) {
 		
 		Response response = new Response();
 		 try {
 			 
-			 User user = userRepository.findById(Long.valueOf(UserId)).orElseThrow(()->new Exceptions("User Not Found"));
+			 User user = userRepository.findById(UserId).orElseThrow(()->new Exceptions("User Not Found"));
 			 UserDto userDto = Utils.mapUserEntityToUserDTOPlusUserBookingAndRooms(user);
 			 response.setStatusCode(200);
 			 response.setMessage("Successful");
