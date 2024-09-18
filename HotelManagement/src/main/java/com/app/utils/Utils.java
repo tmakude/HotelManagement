@@ -109,7 +109,7 @@ public class Utils {
 		return userDTO;
 	}
 
-	private static BookingDto mapBookingEntityToBookingDtoPlusBookingRoom(Booking booking, boolean mapUser) {
+	public static BookingDto mapBookingEntityToBookingDtoPlusBookingRoom(Booking booking, boolean mapUser) {
 		
         BookingDto bookingDto = new BookingDto();
 		

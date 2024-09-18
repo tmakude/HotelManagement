@@ -77,7 +77,7 @@ public class BookingServiceImpl implements BookingService {
 		Response response = new Response();
 		try {
 			Booking booking = bookingRepository.findByBookingConfirmationCode(confirmationCode).orElseThrow(()->new Exceptions("Booking Not Found"));
-			BookingDto bookingDto = Utils.mapBookingEntityToBookingDTO(booking);
+			BookingDto bookingDto = Utils.mapBookingEntityToBookingDtoPlusBookingRoom(booking , true);
 			
 			response.setStatusCode(200);
 			response.setMessage("Successful");

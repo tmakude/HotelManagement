@@ -17,7 +17,7 @@ import com.app.service.UserService;
 public class AuthenticateController {
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping("/register")
 	public ResponseEntity<Response> register(@RequestBody User user){
 		
