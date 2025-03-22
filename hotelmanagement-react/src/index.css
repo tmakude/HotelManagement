@@ -24,7 +24,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 25px 70px 25px 75px;
-  background-color: white;
+  background-color: rgba(105, 106, 91, 0.132);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   font-size: 20px;
@@ -33,7 +33,7 @@
 .navbar-brand a {
   font-size: 24px;
   font-weight: bold;
-  color: #007F86;
+  color: #841191fa;
   text-decoration: none;
 }
 
@@ -52,17 +52,17 @@
 
 .navbar-ul li a {
   text-decoration: none;
-  color: #666;
+  color: #780c74;
   transition: color 0.5s;
 }
 
 .navbar-ul li a:hover {
   color: #FF007F;
-  color: #FF7F50;
+  color: #bf0b4a;
 }
 
 .navbar-ul li a.active {
-  color: #FF7F50;
+  color: #050505f6;
 }
 
 .auth-container {
@@ -365,7 +365,7 @@ button[type="submit"]:hover {
 
 .Royal-color {
   color: #FF007F;
-  color: #ff5733
+  color: #7e0a7b
 }
 
 .service-section {
@@ -1198,6 +1198,25 @@ h2 {
   .navbar-ul li a {
       display: block;
   }
+  .icon{
+
+    height:fit-content;
+
+    
+  }
+
+  textarea {
+    resize: vertical; /* Disable horizontal resizing */
+    overflow: auto; /* Ensure scroll is handled for overflow */
+    min-height: 100px; /* Set a stable min-height */
+    max-height: 300px; /* Optional: limit the max height */
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 
  
 }

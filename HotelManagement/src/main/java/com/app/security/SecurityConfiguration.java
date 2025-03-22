@@ -38,7 +38,7 @@ public class SecurityConfiguration {
 	{
 		httpSecurity.csrf(AbstractHttpConfigurer :: disable)
 		.cors(Customizer.withDefaults())
-		.authorizeHttpRequests(request->request.antMatchers("/auth/**","/room/**","/booking/**")
+		.authorizeHttpRequests(request->request.antMatchers("/auth/**","/rooms/**","/bookings/**")
 				.permitAll().anyRequest().authenticated())
 		.sessionManagement(manger ->manger.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.authenticationProvider(authenticationProvider())

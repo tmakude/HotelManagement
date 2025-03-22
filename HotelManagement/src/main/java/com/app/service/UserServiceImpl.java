@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Response register(User user) {
 		
+		if(user.getEmail().isBlank())
+		{
+			System.out.println("Email is not found");
+		}
+		
 		Response response = new Response();
 		try {
 			

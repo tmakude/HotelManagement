@@ -1,7 +1,11 @@
 package com.app.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +18,14 @@ import com.app.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000")
+@Validated
 public class AuthenticateController {
 	@Autowired
 	private UserService userService;
 
 	@PostMapping("/register")
-	public ResponseEntity<Response> register(@RequestBody User user){
+	public ResponseEntity<Response> register(@Valid @RequestBody User user){
 		
 		Response response = userService.register(user);
 		return ResponseEntity.status(response.getStatusCode()).body(response);

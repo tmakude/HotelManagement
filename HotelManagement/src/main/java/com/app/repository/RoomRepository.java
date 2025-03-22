@@ -11,7 +11,8 @@ import com.app.entity.Room;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
 	
-	@Query("SELECT DISTINCT r.roomType FROM Room r")
+	//@Query("SELECT DISTINCT r.roomType FROM Room r")
+	@Query(value = "SELECT DISTINCT room_type FROM room", nativeQuery = true)
 	List<String> findDistinctRoomTypes();
 	
 	@Query("SELECT r FROM Room r WHERE r.roomType LIKE %:roomType% AND r.id NOT IN (SELECT bk.room.id FROM Booking bk WHERE (bk.checkInDate <= :checkInDate) AND (bk.checkOutDate >= :checkOutDate )  )")

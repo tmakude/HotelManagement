@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default class ApiService {
 
-    static BASE_URL = "http://localhost:4040"
+    static BASE_URL = "http://localhost:8080"
 
     static getHeader() {
         const token = localStorage.getItem("token");
@@ -73,7 +73,7 @@ export default class ApiService {
     /**ROOM */
     /* This  adds a new room room to the database */
     static async addRoom(formData) {
-        const result = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
+        const result = await axios.post(`${this.BASE_URL}/rooms/add`,formData, {
             headers: {
                 ...this.getHeader(),
                 'Content-Type': 'multipart/form-data'

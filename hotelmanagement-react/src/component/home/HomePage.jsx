@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 
 const HomePage=()=>{
 
@@ -9,7 +9,7 @@ const HomePage=()=>{
  
 <section>
   <header className="header-banner">
-< img src="./assets/images/hotel.jpg" alt="Royal Hotel" className="header-image" />
+< img src="/assets/images/hotel.jpg" alt="Royal Hotel" className="header-image" />
 <div className="overlay"></div>
 <div className="animated-texts overlay-content">
 <h1>
@@ -29,33 +29,33 @@ const HomePage=()=>{
 
 <section className="service-section"><div className="service-card">
     
-<img src="./assets/images/air-conditioner_16942171.png" alt="Air Conditioning" class="icon"/>
+<img src="/assests/images/air-conditioner_16942171.png" alt="Air Conditioning" />
 <div className="service-details">
 <h3 className="service-title">Air Conditioning</h3>
-<p className="service-description">Stay cool and comfortable throughout your stay with our indival</p>
+<p className="service-description">Experience ultimate comfort with our efficient air conditioning, tailored to your preferred temperature.</p>
 </div>
 </div>
 <div className="service-card">
-<img src="./assets/images/bar.png" alt="Mini Bar" />
+<img src="/assests/images/bar.png" alt="Mini Bar" />
 <div className="service-details">
 <h3 className="service-title">Mini Bar</h3>
-<p className="service-description">Enjoy a convenient selection of beverages and snacks stock</p>
+<p className="service-description">Enjoy a selection of beverages and snacks in your room with our stocked mini bar.</p>
 </div>
 </div>
 
 <div className="service-card">
-<img src="./assets/images/parking.png" alt="Parking" />
+<img src="/assests/images/parking.png" alt="Parking"  />
 <div className="service-details">
 <h3 className="service-title">Parking</h3>
-<p className="service-description">We offer on-site parking for your convenience </p>
+<p className="service-description">Convenient on-site parking available for all guests. </p>
 </div>
 </div>
 
 <div className="service-card">
-<img src="./assets/images/wifi.png" alt="WiFi" />
+<img src="./assests/images/WIFI.jpg" alt="WiFi" />
 <div className="service-details">
 <h3 className="service-title">WiFi</h3>
-<p className="service-description">Stay connected throughout your stay </p>
+<p className="service-description">Stay cool with our easily adjustable air conditioning for your comfort.</p>
 </div>
 </div>
 </section>

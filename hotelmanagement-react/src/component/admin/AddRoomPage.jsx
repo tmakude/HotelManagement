@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 
@@ -81,6 +81,7 @@ const AddRoomPage = () => {
             formData.append('roomType', roomDetails.roomType);
             formData.append('roomPrice', roomDetails.roomPrice);
             formData.append('roomDescription', roomDetails.roomDescription);
+        
 
             if (file) {
                 formData.append('photo', file);
@@ -148,11 +149,12 @@ const AddRoomPage = () => {
                 </div>
                 <div className="form-group">
                     <label>Room Description</label>
-                    <textarea
-                        name="roomDescription"
-                        value={roomDetails.roomDescription}
-                        onChange={handleChange}
-                    ></textarea>
+                    <input
+                    type='text'
+                     name="roomDescription"
+                     value={roomDetails.roomDescription}
+                     onChange={handleChange}
+                    />
                 </div>
                 <button className="update-button" onClick={addRoom}>Add Room</button>
             </div>

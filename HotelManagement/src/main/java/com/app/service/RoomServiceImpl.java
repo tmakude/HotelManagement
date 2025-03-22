@@ -1,14 +1,22 @@
 package com.app.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.amazonaws.services.s3.internal.AWSS3V4Signer;
 import com.app.dto.Response;
@@ -34,35 +42,44 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String description) {
 		
-		Response response = new Response();
-		 try {
-			//convert the MultipartFile to byte Array
-				byte[] imageBytes = photo.getBytes();
-				// Encode the byte array as a base64 string
-		        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-		        
+		 Response response = new Response();
+		    try {
+		    	 String fileName = saveImage(photo);
+		            
+		            // Generate the URL where the image can be accessed
+		            String imageUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+		                                  .path("/images/")
+		                                  .path(fileName)
+		                                  .toUriString();
+
+		        //Create and save the Room entity with the file path
 		        Room room = new Room();
-		        room.setRoomPhotoUrl(base64Image);
+		        room.setRoomPhotoUrl(imageUrl);  // Store the file path instead of base64
 		        room.setRoomType(roomType);
 		        room.setRoomDescription(description);
 		        room.setRoomPrice(roomPrice);
-		        
-		        Room rooms =roomRepository.save(room);
-		        RoomDto roomDto =Utils.mapRoomEntityToRoomDto(rooms);
-		        
+
+		        Room savedRoom = roomRepository.save(room);
+		        RoomDto roomDto = Utils.mapRoomEntityToRoomDto(savedRoom);
+
 		        response.setStatusCode(200);
-		        response.setMessage("Successfull");
+		        response.setMessage("Room added successfully");
 		        response.setRoom(roomDto);
-			 
-			
-				
-		 }catch(Exception e) {
-				response.setStatusCode(500);
-				response.setMessage("Error saving Room "+e.getMessage());
-				
-			}
-			return response;
+
+		    } catch (Exception e) {
+		        response.setStatusCode(500);
+		        response.setMessage("Error saving Room: " + e.getMessage());
+		    }
+		    return response;
 	}
+	
+	private String saveImage(MultipartFile photo) throws IOException {
+        String uploadDir = "src/main/resources/static/images/";  // Where images are stored
+        String fileName = UUID.randomUUID().toString() + "_" + photo.getOriginalFilename();  // Unique file name
+        Path path = Paths.get(uploadDir + fileName);
+        Files.copy(photo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        return fileName;
+    }
 
 	@Override
 	public List<String> getAllRoomTypes() {
